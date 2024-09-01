@@ -1,0 +1,22 @@
+{
+  "name": "learnreact",
+  "version": "1.0.0",
+  "description": "starting react journey",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kesavan-77/React.js.git"
+  },
+  "author": "Kesavan vel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kesavan-77/React.js/issues"
+  },
+  "homepage": "https://github.com/Kesavan-77/React.js#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
