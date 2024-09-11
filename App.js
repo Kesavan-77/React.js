@@ -1,40 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-const Heading = React.createElement("h1", { id: "home" }, "Welcome to react");
+const heading = React.createElement("h1",{id:"heading"},"I am ready");
 
-console.log(Heading); //returns a object
+//JXS transpiled before it reaches the js - Done by parcel - babel
 
-/***
- * <div id="parent">
- *      <div id="child">
- *          <h1>Welcome to js</h1>
- *      </div>
- * </div>
- *
- * React.createElement --> gives an object with the values
- * root.render --> converts the object to tag and renders to the root id
- */
+//JXS => React.createElement => object => HTMLElement(render);
 
-const parent = React.createElement("div", { id: "parent" }, [
-  React.createElement(
-    "div",
-    { id: "child" },
-    [
-      React.createElement("h1", {}, "Welcome to javascript"),
-      React.createElement("h1", {}, "Welcome to React"),
-    ]
-  ),
-  React.createElement(
-    "div",
-    { id: "child" },
-    [
-      React.createElement("h1", {}, "Welcome to js"),
-      React.createElement("h1", {}, "Welcome to React"),
-    ] // for creating siblings
-  ),
-]);
+const jsx = <h1>Hello guy</h1>;
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(parent);
+root.render(jsx);
