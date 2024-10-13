@@ -1,7 +1,8 @@
 import {FOOD_IMG_SRC_URL} from '../utils/Constant';
+import Shimmer from "./Shimmer";
 
 const ItemCard = ({ data }) => {
-  return (
+  return data.length === 0 ? <Shimmer /> : (
     <div className="items-body">
       {data.map(({ info }) => {
         const {
