@@ -203,15 +203,9 @@ option {
 }
 
 .restaurant-menu {
-  max-width: 700px;
   margin: 2rem auto;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  font-family: 'Roboto', sans-serif;
   color: #333;
-  line-height: 1.6;
 }
 
 .restaurant-name {
@@ -233,12 +227,18 @@ option {
 }
 
 .menu-list {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
 }
 
 .menu-list li {
   display: flex;
+  max-width: 200px;
+  flex-direction: column;
   justify-content: space-between;
   padding: 12px 16px;
   background-color: #fafafa;
@@ -246,11 +246,16 @@ option {
   border-radius: 5px;
   border: 1px solid #eee;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .menu-list li:hover {
   background-color: #f5f5f5;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.menu-list li img{
+  border-radius: 5px;
 }
 
 .menu-item-name {

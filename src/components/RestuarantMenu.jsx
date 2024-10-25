@@ -26,25 +26,38 @@ const RestaurantMenu = (props) => {
   }
 
   const renderMenu = () => {
-    const itemCards =
-      resData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-        ?.card?.itemCards;
-
-    if (!itemCards) {
+    const cards = resData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+    const itemCards = cards.flatMap(card => card?.card?.card?.itemCards || []);
+  
+    if (!itemCards.length) {
       return <p>No menu available</p>;
     }
-
+  
     return (
       <ul className="menu-list">
-        {itemCards.map((item) => (
-          <li key={item.card.info.id}>
-            <span className="menu-item-name">{item.card.info.name}</span>
-            <span className="menu-item-price">₹{item.card.info.price / 100}</span>
-          </li>
-        ))}
+        {itemCards.map((item) => {
+          const { id, imageId, name, price } = item.card.info;
+          return imageId ? (
+            <li key={id}>
+              <span>
+                <img 
+                  src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${imageId}`} 
+                  height="200px" 
+                  width="200px" 
+                  alt={name || "Menu item image"} 
+                />
+              </span>
+              <span className="menu-item-name">{name}</span>
+              <span className="menu-item-price">
+                ₹{price ? (price / 100).toFixed(2) : "Price not available"}
+              </span>
+            </li>
+          ) : null;
+        })}
       </ul>
     );
   };
+  
 
   return (
     <div className="restaurant-menu">
