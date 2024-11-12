@@ -4,35 +4,42 @@ class User extends React.Component {
 
     constructor(props){
         super(props);
+
         this.state = {
-            count: 1,
-            count2: 1,
-            count3: 1,
-            count4: 1,
+            userInfo:{
+                name:"default",
+                location:"default"
+            },
         }
-        console.log("child contructor");
+        console.log(this.props.name + " contructor");
+    }
+
+    async componentDidMount(){
+        const data = await fetch("https://api.github.com/users/kesavan-77");
+        const jsonData = await data.json();
+        console.log(jsonData);
+        this.setState({
+            userInfo: jsonData
+        });
+        console.log(this.props.name + " mount");
+    }
+
+    componentDidUpdate(){
+        console.log(this.props.name + " update");
+    }
+
+    componentWillUnmount(){
+        console.log(this.props.name + " unmount");
     }
 
     render(){
-        console.log("clild render");
-        let {name, location, contact} = this.props;
-        let {count, count2, count3, count4} = this.state;
+        console.log(this.props.name + " render");
+        const {name, location, avatar_url} = this.state.userInfo;
         return(
             <div>
+                <img src={avatar_url} height="300px"></img><br />
                 <span>Name: {name}</span><br/>
                 <span>Location: {location}</span><br/>
-                <span>Contact: {contact}</span><br/>
-                <span>{count}</span><br />
-                <span>{count2}</span><br />
-                <span>{count3}</span><br />
-                <span>{count4}</span><br />
-                <button onClick={()=> this.setState({
-                    count: this.state.count + 1,
-                    count2: this.state.count2 + 2,
-                    count3: this.state.count3 + 3,
-                    count4: this.state.count4 + 4,
-
-                })}>Add</button>
             </div>
         );
     }
