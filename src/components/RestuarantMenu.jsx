@@ -1,30 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useRestuarantMenu from "../utils/useRestuarantMenu";
 
 const RestaurantMenu = (props) => {
-  const [resData, setResData] = useState(null);
   const { resId } = useParams();
-
-  useEffect(() => {
-    fetchRestaurantData();
-  }, []);
-
-  async function fetchRestaurantData() {
-    try {
-      const response = await fetch(
-        `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.99740&lng=79.00110&restaurantId=${resId}&catalog_qa=undefined&submitAction=ENTER`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch menu data");
-      }
-      const jsonData = await response.json();
-      setResData(jsonData);
-      console.log(jsonData);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
+  const resData = useRestuarantMenu(resId);
   const renderMenu = () => {
     const cards = resData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
     const itemCards = cards.flatMap(card => card?.card?.card?.itemCards || []);

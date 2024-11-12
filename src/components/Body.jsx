@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ItemCard from "./ItemCard";
+import { RESTUARANT_URL } from "../utils/Constant";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -37,11 +38,9 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(RESTUARANT_URL);
     const jsonData = await data.json();
-    const fetchedRestaurants = jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+    const fetchedRestaurants = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
     
     // Update both restaurants and filtered restaurants
     setRestaurants(fetchedRestaurants);
