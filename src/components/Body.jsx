@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import ItemCard from "./ItemCard";
 import { RESTUARANT_URL } from "../utils/Constant";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState(restaurants);
   const [searchTerm, setSearchTerm] = useState("");
+  const onlineStatus = useOnlineStatus();
 
   // Search handler
   const handleSearch = (event) => {
@@ -46,6 +48,14 @@ const Body = () => {
     setRestaurants(fetchedRestaurants);
     setFilteredRestaurants(fetchedRestaurants);
   };
+
+  if(!onlineStatus){
+    return (
+      <div class="offline-message">
+        <h1>Please connect to your internet and try again</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
