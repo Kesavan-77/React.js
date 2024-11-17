@@ -42,6 +42,7 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(RESTUARANT_URL);
     const jsonData = await data.json();
+    console.log(jsonData);
     const fetchedRestaurants = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
     
     // Update both restaurants and filtered restaurants
@@ -58,21 +59,22 @@ const Body = () => {
   }
 
   return (
-    <div>
-      <div className="search-body">
+    <div className="p-2 px-4 md:px-20">
+      <div className="mt-8 flex items-center justify-center">
         <input
+          className="w-72 mx-4 px-5 p-2 rounded-lg border-2 border-gray-300"
           type="search"
           placeholder="Search items"
           value={searchTerm}
           onChange={handleSearch}
         />
-        <select onChange={handleFilterOption}>
+        <select onChange={handleFilterOption} className="px-5 p-2 rounded-lg border-2 border-gray-300 hover:cursor-pointer">
           <option value="">Select</option>
           <option value="top-rated">Top rated</option>
           <option value="low-rated">Low rated</option>
         </select>
       </div>
-      <p className="item-head">Restaurants</p>
+      {/* <p className="mt-5 text-3xl">Restaurants</p> */}
       <ItemCard data={filteredRestaurants} />
     </div>
   );
