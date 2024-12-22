@@ -7,29 +7,14 @@ const RestaurantMenu = (props) => {
   const resData = useRestuarantMenu(resId);
 
   const renderMenu = () => {
-    const cards =
-      resData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
-    const itemCards = cards.flatMap(
-      (card) => card?.card?.card?.itemCards || []
-    );
-
-    // Remove duplicate items based on unique 'id'
-    const uniqueItems = itemCards.reduce((acc, current) => {
-      const isDuplicate = acc.some(
-        (item) => item.card.info.id === current.card.info.id
-      );
-      if (!isDuplicate) acc.push(current);
-      return acc;
-    }, []);
-
-    if (!uniqueItems.length) {
-      return <p>No menu available</p>;
-    }
-
+    const cards = resData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+    var categories = cards.filter((c) => c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+    categories = categories[0]?.card?.card?.itemCards || [];
+    console.log(categories);
     return (
       <ul className="mt-5 flex flex-col items-center justify-center gap-5">
-        {uniqueItems.map((item) => {
-          const { id, imageId, name, price } = item.card.info;
+        {categories.map((item) => {
+          const { id, imageId, name, price } = item?.card?.info;
           return imageId ? (
             <li
               key={id}

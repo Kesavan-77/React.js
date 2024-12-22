@@ -1,12 +1,9 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./src/components/Header";
-import Body from "./src/components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import About from "./src/components/About";
-import Contact from "./src/components/Contact";
 import Error from "./src/components/Error";
-import RestaurantMenu from "./src/components/RestuarantMenu";
+import Shimmer from "./src/components/Shimmer";
 
 const AppLayout = () => {
   return (
@@ -17,7 +14,13 @@ const AppLayout = () => {
   );
 };
 
-//route configurations
+// Lazy load components
+const Body = lazy(() => import("./src/components/Body"));
+const About = lazy(() => import("./src/components/About"));
+const Contact = lazy(() => import("./src/components/Contact"));
+const RestaurantMenu = lazy(() => import("./src/components/RestuarantMenu"));
+
+// Route configurations with lazy loading
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -25,19 +28,35 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Body />
+          </Suspense>
+        ),
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
         path: "/restuarant/:resId",
-        element: <RestaurantMenu />,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <RestaurantMenu />
+          </Suspense>
+        ),
       },
     ],
     errorElement: <Error />,

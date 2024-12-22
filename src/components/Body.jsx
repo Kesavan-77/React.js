@@ -42,7 +42,6 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(RESTUARANT_URL);
     const jsonData = await data.json();
-    console.log(jsonData);
     const fetchedRestaurants = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
     
     // Update both restaurants and filtered restaurants
