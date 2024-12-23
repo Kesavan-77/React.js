@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import ItemList from './ItemList';
 
-const ItemCategory = ({ data }) => {
+const ItemCategory = ({ data, showItem, setShowItem }) => {
     const { title, itemCards } = data;
-    const [isOpen, setIsOpen] = useState(false);
-
     const toggleAccordion = () => {
-        setIsOpen(!isOpen);
+        setShowItem();
     };
 
     return itemCards.length>0 ? (
@@ -17,10 +15,10 @@ const ItemCategory = ({ data }) => {
             >
                 <h1 className="text-lg font-semibold text-gray-800">{title}</h1>
                 <span className="text-2xl font-bold text-gray-500">
-                    {isOpen ? '-' : '+'}
+                    {showItem ? '-' : '+'}
                 </span>
             </div>
-            <ul className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+            <ul className={`transition-all duration-300 ease-in-out ${showItem ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
                 <ItemList list = {itemCards}/>
             </ul>
         </div>

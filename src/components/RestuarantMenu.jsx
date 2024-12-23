@@ -6,15 +6,16 @@ import ItemCategory from "./ItemCategory";
 const RestaurantMenu = (props) => {
   const { resId } = useParams();
   const resData = useRestuarantMenu(resId);
+  const [showItem, setShowItem] = useState(0);
 
   const renderMenu = () => {
     const cards = resData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
     var categories = cards.filter((c) => c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
     return (
       <ul className="mt-5 flex flex-col items-center justify-center gap-5">
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           return(
-          <ItemCategory data={category.card.card} />
+          <ItemCategory data={category.card.card} showItem={index===showItem} setShowItem = {()=>setShowItem (index)} />
         )
         })}
       </ul>
