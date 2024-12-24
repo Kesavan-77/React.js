@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useRestuarantMenu from "../utils/useRestuarantMenu";
 import ItemCategory from "./ItemCategory";
 
-const RestaurantMenu = (props) => {
+const RestaurantMenu = () => {
   const { resId } = useParams();
   const resData = useRestuarantMenu(resId);
   const [showItem, setShowItem] = useState(0);
@@ -15,7 +15,7 @@ const RestaurantMenu = (props) => {
       <ul className="mt-5 flex flex-col items-center justify-center gap-5">
         {categories.map((category, index) => {
           return(
-          <ItemCategory data={category.card.card} showItem={index===showItem} setShowItem = {()=>setShowItem (index)} />
+          <ItemCategory data={category.card.card} showItem={index===showItem} setShowItem = {()=>setShowItem (index==showItem ? -1 : index)} />
         )
         })}
       </ul>

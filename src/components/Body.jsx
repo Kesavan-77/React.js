@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ItemCard from "./ItemCard";
 import { RESTUARANT_URL } from "../utils/Constant";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import ThemeContext from "../utils/ThemeContext";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState(restaurants);
   const [searchTerm, setSearchTerm] = useState("");
   const onlineStatus = useOnlineStatus();
+  const {theme, setTheme} = useContext(ThemeContext);
 
   // Search handler
   const handleSearch = (event) => {
@@ -35,6 +37,11 @@ const Body = () => {
     setFilteredRestaurants(filtered);
   };
 
+  //theme handler
+  const handleThemeOption = (event)=>{
+    setTheme(event.target.value);
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -42,7 +49,7 @@ const Body = () => {
   const fetchData = async () => {
     const data = await fetch(RESTUARANT_URL);
     const jsonData = await data.json();
-    const fetchedRestaurants = jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+    const fetchedRestaurants = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
     
     // Update both restaurants and filtered restaurants
     setRestaurants(fetchedRestaurants);
@@ -58,24 +65,29 @@ const Body = () => {
   }
 
   return (
-    <div className="p-2 px-4 md:px-20">
-      <div className="mt-8 flex items-center justify-center">
-        <input
-          className="w-72 mx-4 px-5 p-2 rounded-lg border-2 border-gray-300"
-          type="search"
-          placeholder="Search items"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-        <select onChange={handleFilterOption} className="px-5 p-2 rounded-lg border-2 border-gray-300 hover:cursor-pointer">
-          <option value="">Select</option>
-          <option value="top-rated">Top rated</option>
-          <option value="low-rated">Low rated</option>
-        </select>
+      <div className="p-2 px-4 md:px-20">
+        <div className="mt-8 flex items-center justify-center">
+          <input
+            className="w-72 mx-4 px-5 p-2 rounded-lg border-2 border-gray-300"
+            type="search"
+            placeholder="Search items"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          <select onChange={handleFilterOption} className="px-5 p-2 rounded-lg border-2 border-gray-300 hover:cursor-pointer">
+            <option value="">Select</option>
+            <option value="top-rated">Top rated</option>
+            <option value="low-rated">Low rated</option>
+          </select>
+          <select onChange={handleThemeOption} className="px-5 p-2 rounded-lg border-2 border-gray-300 hover:cursor-pointer">
+            <option value="light">Theme</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+        {/* <p className="mt-5 text-3xl">Restaurants</p> */}
+        <ItemCard data={filteredRestaurants} />
       </div>
-      {/* <p className="mt-5 text-3xl">Restaurants</p> */}
-      <ItemCard data={filteredRestaurants} />
-    </div>
   );
 };
 

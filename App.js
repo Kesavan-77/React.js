@@ -1,16 +1,20 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./src/components/Header";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Error from "./src/components/Error";
 import Shimmer from "./src/components/Shimmer";
+import ThemeContext from "./src/utils/ThemeContext";
 
 const AppLayout = () => {
+  const [theme, setTheme] = useState("light");
   return (
-    <div>
-      <Header />
-      <Outlet />
-    </div>
+    <ThemeContext.Provider value={{theme: theme, setTheme}}>
+      <div>
+        <Header />
+        <Outlet />
+      </div>
+    </ThemeContext.Provider>
   );
 };
 
