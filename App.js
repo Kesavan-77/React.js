@@ -5,16 +5,20 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Error from "./src/components/Error";
 import Shimmer from "./src/components/Shimmer";
 import ThemeContext from "./src/utils/ThemeContext";
+import { Provider } from "react-redux";
+import appStore from "./src/redux/AppStore";
 
 const AppLayout = () => {
   const [theme, setTheme] = useState("light");
   return (
-    <ThemeContext.Provider value={{theme: theme, setTheme}}>
-      <div>
-        <Header />
-        <Outlet />
-      </div>
-    </ThemeContext.Provider>
+    <Provider store={appStore}>
+      <ThemeContext.Provider value={{theme: theme, setTheme}}>
+        <div>
+          <Header />
+          <Outlet />
+        </div>
+      </ThemeContext.Provider>
+    </Provider>
   );
 };
 

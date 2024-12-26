@@ -1,27 +1,33 @@
 import { useState } from 'react';
+import { addItem } from '../redux/slices/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const ItemList = ({ list }) => {
-    const [quantities, setQuantities] = useState({});
+    // const [quantities, setQuantities] = useState({});
 
-    const handleIncrement = (id) => {
-        setQuantities((prev) => ({
-            ...prev,
-            [id]: (prev[id] || 0) + 1
-        }));
-    };
+    // const handleIncrement = (id) => {
+    //     setQuantities((prev) => ({
+    //         ...prev,
+    //         [id]: (prev[id] || 0) + 1
+    //     }));
+    // };
 
-    const handleDecrement = (id) => {
-        setQuantities((prev) => ({
-            ...prev,
-            [id]: prev[id] > 0 ? prev[id] - 1 : 0
-        }));
-    };
+    // const handleDecrement = (id) => {
+    //     setQuantities((prev) => ({
+    //         ...prev,
+    //         [id]: prev[id] > 0 ? prev[id] - 1 : 0
+    //     }));
+    // };
+
+    const dispatch = useDispatch();
+    const addCartHandler = (name) => {
+        dispatch(addItem(name));
+    }
 
     return (
         <div>
             {list.map((item, index) => {
                 const { name, id, imageId, price } = item.card.info;
-                const quantity = quantities[id] || 0;
 
                 return imageId ? (
                     <li key={id + index} className="flex items-center justify-between p-5 border-t border-gray-200">
@@ -37,9 +43,7 @@ const ItemList = ({ list }) => {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4 text-white w-fit p-3 bg-green-800 rounded-md">
-                            <button onClick={() => handleDecrement(id)} className="px-2">-</button>
-                            <span>{quantity}</span>
-                            <button onClick={() => handleIncrement(id)} className="px-2">+</button>
+                            <button onClick={addCartHandler(name)} className="px-2">Add to cart</button>
                         </div>
                     </li>
                 ) : null;

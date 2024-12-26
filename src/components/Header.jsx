@@ -1,9 +1,14 @@
 import { useState } from "react";
 import logo from "../../public/assets/logo.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [status, setStatus] = useState("login");
+
+  //subscribing to the store using a selector
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   const getButtonClass = (status) =>
     `py-2 px-5 ${
@@ -22,7 +27,7 @@ const Header = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/cart">Cart</Link></li>
+          <li><Link to="/cart">Cart ({cartItems.length})</Link></li>
           <li>
             <button
               onClick={() =>
