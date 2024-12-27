@@ -27,6 +27,7 @@ const Body = lazy(() => import("./src/components/Body"));
 const About = lazy(() => import("./src/components/About"));
 const Contact = lazy(() => import("./src/components/Contact"));
 const RestaurantMenu = lazy(() => import("./src/components/RestuarantMenu"));
+const Cart = lazy(()=> import('./src/components/Cart'));
 
 // Route configurations with lazy loading
 const appRouter = createBrowserRouter([
@@ -66,6 +67,14 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path:'/cart',
+        element: (
+          <Suspense fallback={<Shimmer />} >
+            <Cart />
+          </Suspense>
+        )
+      }
     ],
     errorElement: <Error />,
   },
