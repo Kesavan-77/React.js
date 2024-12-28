@@ -24,7 +24,7 @@ const ItemList = ({ list }) => {
                             </div>
                         </div>
                         <div className="flex items-center space-x-4 text-white w-fit p-3 bg-green-800 rounded-md">
-                            <button onClick={() => addCartHandler(item.card)} className="px-2">Add to cart</button>
+                            <button onClick={() => addCartHandler(item)} className="px-2">Add to cart</button>
                         </div>
                     </li>
                 ) : null;
